@@ -62,3 +62,4 @@ npm install
 npm test                      # price math and calendar parsing
 ./scripts/build-preview.sh    # design preview with a saved sample calendar
 ```
+
