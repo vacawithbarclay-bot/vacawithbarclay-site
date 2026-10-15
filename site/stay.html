@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Book your stay · Vaca with Barclay</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:wght@400;600;700&display=swap">
+  <link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+  <header class="top">
+    <div class="wrap">
+      <a class="brand" href="index.html" aria-label="Vaca with Barclay home">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="21" cy="11" r="5" fill="var(--sun)"/><path d="M3 20c3 0 3-2.5 6.5-2.5S13 20 16 20s3-2.5 6.5-2.5S26 20 29 20M3 26c3 0 3-2.5 6.5-2.5S13 26 16 26s3-2.5 6.5-2.5S26 26 29 26" fill="none" stroke="var(--gulf)" stroke-width="2.2" stroke-linecap="round"/></svg>
+        Vaca with Barclay
+      </a>
+      <nav aria-label="Main">
+        <a href="stay.html?unit=BV2">Beachview 2</a>
+        <a href="stay.html?unit=BV13">Beachview 13</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap stay">
+    <article>
+      <div class="gallery" id="gallery"></div>
+      <div class="stay-head">
+        <span class="coord">Beachview · Navarre Beach, FL</span>
+        <h1 id="unit-name">Beachview</h1>
+        <p class="muted" id="unit-tag" style="margin:0"></p>
+        <ul class="facts" id="unit-facts"></ul>
+        <div class="stars" id="unit-stars"></div>
+      </div>
+      <section class="section" id="about"><h2>About this home</h2><p id="unit-summary" style="margin:0"></p><ul class="list" id="unit-highlights"></ul></section>
+      <section class="section" id="sleeping"><h2>Where you'll sleep</h2><ul class="list" id="unit-beds"></ul></section>
+      <section class="section" id="house-rules"><h2>House rules</h2><ul class="list" id="rules"></ul></section>
+      <section class="section" id="cancellation"><h2>Cancellation</h2><ul class="list" id="policy"></ul></section>
+    </article>
+
+    <aside class="book" id="book" aria-label="Book this home">
+      <h2>Pick your dates</h2>
+      <div class="picked">
+        <div><small>Check-in</small><span id="in-label">Add date</span></div>
+        <div><small>Check-out</small><span id="out-label">Add date</span></div>
+      </div>
+      <div>
+        <div class="cal-nav">
+          <button type="button" class="icon-btn" id="cal-prev" aria-label="Previous month">‹</button>
+          <b id="cal-month"></b>
+          <button type="button" class="icon-btn" id="cal-next" aria-label="Next month">›</button>
+        </div>
+        <div class="cal" id="cal" style="margin-top:10px"></div>
+        <p class="cal-key">Prices are per night. Struck-through dates are booked. <button type="button" id="clear" style="all:unset;color:var(--gulf);cursor:pointer;text-decoration:underline">Clear dates</button></p>
+      </div>
+      <div class="field">
+        <label for="guests">Guests</label>
+        <input id="guests" type="number" min="1" max="8" inputmode="numeric">
+        <small class="muted" id="guests-note"></small>
+      </div>
+      <div class="quote" id="quote" aria-live="polite"></div>
+      <p class="error" id="quote-error" role="alert"></p>
+      <div class="pay" id="pay" hidden>
+        <span id="pay-label">Due today (50%)</span>
+        <b id="pay-now"></b>
+        <span class="muted" id="pay-later"></span>
+      </div>
+      <form id="guest-form" hidden novalidate>
+        <div style="display:grid;gap:12px">
+          <div class="field"><label for="g-name">Full name</label><input id="g-name" autocomplete="name" required></div>
+          <div class="field"><label for="g-email">Email</label><input id="g-email" type="email" autocomplete="email" required></div>
+          <div class="field"><label for="g-phone">Mobile phone</label><input id="g-phone" type="tel" autocomplete="tel" required></div>
+          <div class="field"><label for="g-notes">Anything we should know? (optional)</label><textarea id="g-notes"></textarea></div>
+          <label class="check"><input type="checkbox" id="g-agree"> <span>I agree to the house rules and cancellation policy, and allow the balance to be charged to my card on the date shown.</span></label>
+          <button class="cta" id="cta" type="submit">Book now</button>
+          <p class="error" id="form-error" role="alert"></p>
+          <p class="fine">Payment is handled securely by Stripe. Your dates are held for 30 minutes while you pay.</p>
+        </div>
+      </form>
+    </aside>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>Beachview, Gulf Blvd, Navarre Beach, FL 32566</span>
+      <span>Questions? vacawithbarclay@gmail.com</span>
+    </div>
+  </footer>
+  <script type="module" src="js/stay.js"></script>
+</body>
+</html>

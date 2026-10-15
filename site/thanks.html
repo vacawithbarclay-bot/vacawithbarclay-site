@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>You're booked · Vaca with Barclay</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:wght@400;600;700&display=swap">
+  <link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+  <header class="top"><div class="wrap"><a class="brand" href="index.html">Vaca with Barclay</a></div></header>
+  <main class="wrap thanks" id="thanks">
+    <span class="coord">Booking <span id="code"></span></span>
+    <h1 id="title">Confirming your booking…</h1>
+    <p id="detail" class="muted">This takes a few seconds.</p>
+    <p class="muted">Your Stripe receipt is on its way to your email. About 2 to 4 weeks before you arrive we'll email a welcome letter with the address, door codes and parking details. Questions in the meantime: vacawithbarclay@gmail.com.</p>
+    <p><a href="index.html">Back to the homes</a></p>
+  </main>
+  <script type="module">
+    import { bookingStatus, money, niceDate } from './js/api.js';
+    const id = new URLSearchParams(location.search).get('b') || '';
+    document.getElementById('code').textContent = id;
+    const name = { BV2: 'Beachview 2', BV13: 'Beachview 13' };
+    let tries = 0;
+    async function poll() {
+      const s = await bookingStatus(id).catch(() => ({ status: 'processing' }));
+      const t = document.getElementById('title'), d = document.getElementById('detail');
+      if (s.status === 'confirmed') {
+        t.textContent = 'You’re booked!';
+        d.textContent = s.unitId
+          ? `${name[s.unitId]}, ${niceDate(s.checkIn)} to ${niceDate(s.checkOut)}. Paid today: ${money(s.paid)}.` + (s.balance > 0 ? ` The remaining ${money(s.balance)} will be charged on ${niceDate(s.balanceDate, { month: 'long', day: 'numeric' })}.` : '')
+          : 'See you on the beach.';
+      } else if (s.status === 'cancelled') {
+        t.textContent = 'Those dates were just taken';
+        d.textContent = 'Someone booked the same nights on another site while you were paying. Your payment has been refunded in full. Please pick other dates or email us.';
+      } else if (tries++ < 20) {
+        setTimeout(poll, 1500);
+      } else {
+        t.textContent = 'Payment received';
+        d.textContent = 'Your confirmation is taking longer than usual. You’ll get an email shortly; reach out if you don’t.';
+      }
+    }
+    poll();
+  </script>
+</body>
+</html>
